@@ -1,0 +1,59 @@
+p,
+h3 {
+    margin: 0;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+p {
+    font-size: 90%;
+}
+
+div.date-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.date {
+    font-size: 80%;
+    color: darkgray;
+}
+
+.tag {
+    font-size: 70%;
+    margin-right: 6px;
+    background-color: darkgoldenrod;
+    color: white;
+    border-radius: 6px;
+    padding: 4px 8px;
+    text-transform: lowercase;
+}
+
+.tag:hover {
+    color: darkgoldenrod;
+    background-color: white;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+button.card-button {
+    color: blue;
+    background-color: transparent;
+    text-transform: capitalize;
+    margin: 0;
+    border: 1px solid blue;
+    font-size: 80%;
+    padding: 4px 8px;
+}
+
+button.card-button:hover {
+    background-color: blue;
+    color: white;
+}
+
+button.card-button:active {
+    background-color: darkblue;
+}

@@ -1,0 +1,21 @@
+button.card {
+    width: 400px;
+    background-color: white;
+    color: #333;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+    zoom: 1.2;
+}
+
+button.card:hover {
+    transform: scale(1.125, 1.125);
+    -moz-transform: scale(1.125, 1.125);
+    -ms-transform: scale(1.125, 1.125);
+    -webkit-transform: scale(1.125, 1.125);
+    -o-transform: scale(1.125, 1.125);
+
+    margin: 8px 0 16px 0;
+}
