@@ -1,3 +1,5 @@
-import Card from './card/Card'
+import LinkCard from './linkCard/LinkCard'
 import Loader from './loader/Loader'
-export { Card, Loader }
+import Card from './card/Card'
+
+export { LinkCard, Loader, Card }

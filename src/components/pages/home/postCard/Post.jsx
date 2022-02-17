@@ -1,12 +1,11 @@
-import { Card } from '../../..'
+import { LinkCard } from '../../..'
 import './post.css'
 import moment from 'moment'
 
 const Post = ({ post }) => {
     const { title, tags, createdAt } = post
-
     return (
-        <Card onClick={() => console.log(title)}>
+        <LinkCard to={`/post/${post.id}`}>
             <div className="date-container">
                 <p className="date">{moment(createdAt).format('DD-MM-YYYY')}</p>
             </div>
@@ -18,7 +17,7 @@ const Post = ({ post }) => {
                     </span>
                 ))}
             </div>
-        </Card>
+        </LinkCard>
     )
 }
 

@@ -1,7 +1,7 @@
 import './card.css'
 
-const Card = ({ children, onClick }) => {
-    return <button className="card">{children}</button>
+const Card = ({ children }) => {
+    return <div className="card">{children}</div>
 }
 
 export default Card

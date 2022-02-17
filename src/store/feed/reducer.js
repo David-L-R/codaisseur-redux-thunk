@@ -1,4 +1,4 @@
-import { GET_POSTS } from './types'
+import { GET_POSTS, START_LOADING } from './types'
 
 const initialState = {
     loading: false,
@@ -7,13 +7,18 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case GET_POSTS: {
+        case START_LOADING:
+            return {
+                ...state,
+                loading: true,
+            }
+        case GET_POSTS:
             return {
                 ...state,
                 loading: false,
-                posts: [],
+                posts: [...state.posts, ...action.payload],
             }
-        }
+
         default: {
             return state
         }
