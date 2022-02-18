@@ -12,8 +12,10 @@ export default function PostsFeed() {
     const loading = useSelector(selectLoading)
 
     useEffect(() => {
-        dispatch(fetchNext5Posts)
-    }, [dispatch])
+        if (feed.length === 0) {
+            dispatch(fetchNext5Posts)
+        }
+    }, [feed, dispatch])
 
     return (
         <div className="PostsFeed">

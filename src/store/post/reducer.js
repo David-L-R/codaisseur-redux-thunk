@@ -1,8 +1,9 @@
-import { GET_POSTS, START_LOADING } from './types'
+import { GET_COMMENTS, GET_ONE_POST, START_LOADING } from './types'
 
 const initialState = {
     loading: false,
-    posts: [],
+    post: null,
+    comments: [],
 }
 
 export default function reducer(state = initialState, action) {
@@ -12,13 +13,19 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 loading: true,
             }
-        case GET_POSTS:
+        case GET_ONE_POST:
             return {
                 ...state,
                 loading: false,
-                posts: [...state.posts, ...action.payload],
+                post: { ...action.payload },
             }
 
+        case GET_COMMENTS:
+            return {
+                ...state,
+                loading: false,
+                comments: [...action.payload],
+            }
         default: {
             return state
         }

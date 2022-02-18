@@ -1,6 +1,7 @@
 import { GET_POSTS, START_LOADING } from './types'
 import axios from 'axios'
-import { LIMIT, API_URL } from './variables'
+import { LIMIT } from './variables'
+import { API_URL_BASE } from '../../config'
 
 export const getPosts = (posts) => {
     return {
@@ -17,7 +18,7 @@ export const startLoading = () => {
 
 export const fetchNext5Posts = async (dispatch, getState) => {
     try {
-        const result = await axios.get(API_URL, {
+        const result = await axios.get(`${API_URL_BASE}/posts`, {
             params: {
                 limit: LIMIT,
                 offset: getState().feed.posts.length,

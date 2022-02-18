@@ -1,2 +1,3 @@
-export const selectFeed = (reduxState) => reduxState.feed.posts
-export const selectLoading = (reduxState) => reduxState.feed.loading
+export const selectPost = (reduxState) => reduxState.post.post
+export const selectLoading = (reduxState) => reduxState.post.loading
+export const selectComments = (reduxState) => reduxState.post.comments

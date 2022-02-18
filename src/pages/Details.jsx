@@ -1,52 +1,100 @@
 import moment from 'moment'
-import { useParams } from 'react-router-dom'
-import { Card } from '../components'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
+import { Card, Loader } from '../components'
+import { getCommentById, getPostById } from '../store/post/actions'
+import {
+    selectComments,
+    selectLoading,
+    selectPost,
+} from '../store/post/selectors'
 import './styles/details.css'
 
 const Details = () => {
+    const dispatch = useDispatch()
     const { id } = useParams()
+    const post = useSelector(selectPost)
+    const comments = useSelector(selectComments)
+    const loading = useSelector(selectLoading)
 
-    const post = {
-        createdAt: '',
-        title: 'Test',
-        content:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores quae, aut, enim atque, eaque ipsum nihil magnam doloribus distinctio saepe aspernatur. Atque id inventore obcaecati, quod, distinctio nesciunt reiciendis veritatis aliquam sapiente quisquam ipsam dignissimos. Numquam laborum a quam alias placeat molestias consectetur laudantium nobis nihil eaque ut fugit ipsum obcaecati quia, quis, itaque vel distinctio. Architecto, veniam fugit aliquam vel, nobis ut eaque perferendis ducimus quaerat vero incidunt. Ab, laboriosam saepe libero natus aspernatur qui esse pariatur officia ipsum quis reiciendis perspiciatis, porro sit aliquam magnam. Iure est necessitatibus quod cupiditate totam hic illum velit deleniti magnam, ratione id soluta doloremque asperiores laboriosam, at error placeat natus, aliquid dicta tempora repellendus? Iusto eius architecto doloremque quibusdam suscipit? Accusamus quas quis aperiam adipisci magnam, facilis unde reprehenderit sapiente minima ipsa labore. Eligendi laborum deserunt optio, voluptatibus repellat minima deleniti. Quam animi optio ipsa magni illum ut dicta. Quae dolorum aut aperiam voluptates dolor facilis sapiente itaque dicta repellendus, et earum. Odit, ratione aspernatur maiores reiciendis repudiandae, qui aliquid necessitatibus vitae veritatis recusandae vero odio nemo corporis sapiente molestias numquam asperiores saepe rem dicta possimus eius. Vero at animi quod ex architecto repellat beatae earum ratione repellendus non, debitis assumenda alias deleniti quo molestias placeat deserunt! Provident dolorem ut voluptates sit velit eum aliquid ratione harum eius libero, voluptas quas officiis dicta reiciendis, minus fugiat. Vero in consectetur, magni assumenda ipsam voluptas nulla distinctio laudantium accusantium exercitationem facilis neque aliquid fuga ipsum aut molestiae? Quas molestias, rem voluptatibus, eius natus cupiditate praesentium eveniet fugiat excepturi ex voluptatem eum tenetur quasi assumenda delectus similique? Neque distinctio quo magnam cupiditate dolorum laborum recusandae quaerat officia vel voluptatum consequatur itaque optio tempore odio ullam nemo dignissimos debitis dolorem, soluta molestiae obcaecati culpa tenetur! Vel deleniti accusamus cumque quae quibusdam ducimus odio mollitia magni quam.',
-        tags: [
-            {
-                id: 1,
-                tag: 'test1',
-            },
-            {
-                id: 2,
-                tag: 'test2',
-            },
-            {
-                id: 3,
-                tag: 'test3',
-            },
-        ],
+    const { createdAt, title, tags, content, developer, post_likes } =
+        post || {}
+
+    const { name } = developer || {}
+
+    useEffect(() => {
+        dispatch(getPostById(id))
+        dispatch(getCommentById(id))
+    }, [dispatch, id])
+
+    useEffect(() => {
+        if (post && comments.length > 0) {
+            console.log(post)
+            console.log(comments)
+        }
+    }, [post, comments])
+
+    const getTechTags = () => {
+        console.log(post?.developer?.technologies)
+
+        const tags = post?.developer?.technologies.map((tech) => tech.title)
+
+        const tagsToString = tags.join(' | ')
+
+        return tagsToString
     }
-
-    const { createdAt, title, tags, content } = post
 
     return (
         <div className="details-container">
-            <Card>
-                <div className="date-container">
-                    <p className="date">
-                        {moment(createdAt).format('DD-MM-YYYY')}
-                    </p>
-                </div>
-                <h3>{title}</h3>
-                <p>{content}</p>
-                <div style={{ display: 'flex' }}>
-                    {tags.map((tag) => (
-                        <span className="tag" key={tag.id}>
-                            {tag.tag}
+            <Link to={'/'} className="back-button">
+                &#60; Back
+            </Link>
+            {title && content && (
+                <Card>
+                    <div className="date-container">
+                        <p className="date">
+                            {moment(createdAt).format('DD-MM-YYYY')}
+                        </p>
+                    </div>
+                    <h3>{title}</h3>
+                    <p>{content}</p>
+                    <span className="author">
+                        Written by: {name}{' '}
+                        <span style={{ fontSize: '70%', color: 'teal' }}>
+                            {getTechTags()}
                         </span>
-                    ))}
-                </div>
-            </Card>
+                    </span>
+                    <span className="like-button">👍 {post_likes.length}</span>
+                    <div style={{ display: 'flex' }}>
+                        {tags.map((tag) => (
+                            <span className="tag" key={tag.id}>
+                                {tag.tag}
+                            </span>
+                        ))}
+                    </div>
+                    {comments.length !== 0 ? (
+                        <div>
+                            {comments.map((comment) => (
+                                <div className="comment" key={comment.id}>
+                                    <h4 className="comment-title">
+                                        {comment.developer.name}
+                                    </h4>
+                                    <p className="comment-text">
+                                        {comment.text}
+                                    </p>
+                                    <span className="comment-date">
+                                        {moment(createdAt).format('DD-MM-YYYY')}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        loading && <Loader />
+                    )}
+                </Card>
+            )}
+            {!post && loading && <Loader />}
         </div>
     )
 }

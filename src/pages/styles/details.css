@@ -1,3 +1,63 @@
 .details-container {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.back-button {
+    background-color: transparent;
+    border: white 1px solid;
+    padding: 12px 24px;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 20px;
+    width: max-content;
+}
+
+.back-button:hover {
+    background-color: white;
+    color: #333;
+}
+
+.author {
+    font-size: 80%;
+    width: max-content;
+    background-color: #333;
+    padding: 4px 12px;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.like-button {
+    width: max-content;
+    padding: 4px 12px;
+    background-color: rgba(205, 209, 228, 1);
+    margin-bottom: 8px;
+    border-radius: 16px;
+    color: darkblue;
+}
+
+.comment {
+    margin-top: 12px;
+    border-bottom: gray 1px solid;
+    padding-bottom: 12px;
+    position: relative;
+}
+
+.comment-title {
+    font-size: 65%;
+    margin: 0 0 8px 0;
+}
+
+.comment-text {
+    font-size: 70%;
+    margin: 0 0 8px 0;
+}
+
+.comment-date {
+    font-size: 60%;
+    color: darkgray;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
